@@ -1,0 +1,278 @@
+<html>
+  
+  <head>
+    <title>Time Me!</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link 
+      href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' 
+      rel='stylesheet' 
+      type='text/css'>
+    <style>
+    
+      * {
+        box-sizing: border-box;
+      }
+      @-moz-keyframes tick { 100% { -moz-transform: rotate(360deg); } }
+      @-webkit-keyframes tick { 100% { -webkit-transform: rotate(360deg); } }
+      @-webkit-keyframes tick { 100% { -webkit-transform: rotate(360deg); } }
+      
+      .clockface {
+        width: 500px;
+        height: 500px;
+        border: thick solid black;
+        border-radius: 300px;
+        position:absolute;
+        top:50%;
+        left:50%;
+        margin-top:-250px;
+        margin-left: -250px;
+      }
+      
+      .three, .six, .nine, .twelve {
+        position: absolute;
+        background-color: black;
+      }
+      
+      .three {
+        height: 4px;
+        width: 30px;
+        right: 2px;
+        top:50%;
+        margin-top: -2px;
+      }
+      
+      .six {
+        height: 30px;
+        width: 4px;
+        bottom: 2px;
+        left:50%;
+        margin-left: -2px;
+      }
+      
+      .nine {
+        height: 4px;
+        width: 30px;
+        left: 2px;
+        top:50%;
+        margin-top: -2px;
+      }
+      
+      .twelve {
+        height: 30px;
+        width: 4px;
+        top: 2px;
+        left:50%;
+        margin-left: -2px;
+      }
+      
+      .middle-dot {
+        position:absolute;
+        top:50%;
+        left:50%;
+        width:20px;
+        height:20px;
+        margin-left:-10px;
+        margin-top:-10px;
+        background-color: black;
+        border-radius:10px;
+        z-index: 6;
+      }
+      
+      /* how to make teardrop shape? */
+      .second-hand {
+        width: 2px;
+        height: 58%;
+        background-color: red;
+        transform-origin: 50% 82.5%;
+        position:absolute;
+        
+        bottom: 40%;
+        left: 50%;
+        margin-left: -1px;
+        border-radius: 1px;
+        z-index:5;
+      }
+      
+      .second-hand::after {
+        position:absolute;
+        top:100%;
+        left: 50%;
+        width:20px;
+        height: 20px;
+        border: 2px solid red;
+        content: '';
+        margin-left:-10px;
+        margin-top: -1px;
+        border-radius: 10px;
+        box-sizing: border-box;
+      }
+      
+      /* animate */
+      .clockface.go-go-go .second-hand {
+        -webkit-animation:tick 6s linear infinite;
+        -moz-animation:tick 6s linear infinite;
+        animation:tick 6s linear infinite;
+      }
+      
+      .clockface.go-go-go .minute-hand {
+        -webkit-animation:tick 90s linear infinite;
+        -moz-animation:tick 90s linear infinite;
+        animation:tick 90s linear infinite;
+      }
+      
+      .clockface .second-swipe {
+        
+      }
+      
+      .inlay {
+        width: 130px;
+        height: 130px;
+        border-radius: 65px;
+        border: 2px solid black;
+        top: 50px;
+        left: 50%;
+        margin-left: -65px;
+        position: absolute;
+      }
+      
+      .minute-hand {
+        height: 60px;
+        width: 2px;
+        background-color: black;
+        transform-origin: 50% 100%;
+        position:absolute;
+        bottom:50%;
+/*        margin:0 auto;*/
+        left: 50%;
+        margin-left: -1px;
+        z-index:3;
+        
+      }
+      
+/*      .clip-me {
+        width: 300px;
+        height: 300px;
+        background: black;
+        border-radius: 150px;
+
+      }*/
+      
+      .five, .ten, .fifteen, .slice {
+        position: absolute;
+        -moz-border-radius: 65px; 
+        -webkit-border-radius: 65px; 
+        -o-border-radius: 65px; 
+        border-radius: 65px; 
+        left:0;
+        top:0;
+        bottom:0;
+        right:0;
+      }
+      
+      .five, .ten, .fifteen {
+        clip: rect(0px, 130px, 130px, 63px);
+      }
+      
+      .slice {
+         clip: rect(0px, 63px, 130px, 0px);
+         transform: rotateZ(120deg);
+       }
+      
+      .ten {
+        transform: rotateZ(120deg);
+      }
+      
+      .fifteen {
+        transform: rotateZ(240deg);
+      }
+      
+      .five .slice {
+        background-color: lightseagreen;
+      }
+      .ten .slice {
+        background-color: peachpuff;
+      }
+      .fifteen .slice {
+        background-color: tomato;
+      }
+      
+      .inlay span {
+        font-family: 'La Belle Aurore', cursive;
+        color: white;
+        font-size: 3em;
+        font-weight: 400;
+        position:absolute;
+        line-height: 1em;
+        z-index:3;
+      }
+      
+      .number-five {
+        top: 18%;
+        right: 18%;
+      }
+      
+      .number-fifteen {
+        top: 18%;
+        left: 10%;
+      }
+      
+      .number-ten {
+        bottom: 0%;
+        left: 37%;
+      }
+    
+    </style>
+  </head>
+  <body>
+    
+    <button class='start'>start</button>
+    <button class='reset'>reset</button>
+    
+    <div class='clockface'>
+      <div class='middle-dot'></div>
+      <div class='three'></div>
+      <div class='six'></div>
+      <div class='nine'></div>
+      <div class='twelve'></div>
+      <div class='inlay'>
+        <span class='number-five'>5</span>
+        <span class='number-ten'>10</span>
+        <span class='number-fifteen'>15</span>
+        
+        
+        <div class='five'><div class='slice'></div></div>
+        <div class='ten'><div class='slice'></div></div>
+        <div class='fifteen'><div class='slice'></div></div>
+        
+        <div class='minute-hand'></div>
+      </div>
+      <div class='second-hand'></div>
+    </div>
+    
+    <script>
+      var intervalId;
+      
+      var startTimer = function() {
+        $('.clockface').addClass('go-go-go');
+        if(intervalId) {
+          clearTimeout(intervalId);
+        }
+        
+        intervalId = setTimeout(function() {
+          alert("Time's up!")
+          $('.clockface').removeClass('go-go-go');
+        }, 90000);
+      }
+      
+      $(function() {
+        $('.start').on('click', startTimer);
+        
+        $('.reset').on('click', function(event) {
+          $('.clockface').removeClass('go-go-go');
+          // alert('hi!')
+          requestAnimationFrame(startTimer);
+        })
+      })
+    </script>
+  </body>
+</html>
