@@ -1,12 +1,13 @@
 <html>
   
   <head>
-    <title>Time Me!</title>
+    <title>Shiver Me Timers!</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link 
       href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' 
       rel='stylesheet' 
       type='text/css'>
+      
     <style>
     
       * {
@@ -109,15 +110,15 @@
       
       /* animate */
       .clockface.go-go-go .second-hand {
-        -webkit-animation:tick 6s linear infinite;
-        -moz-animation:tick 6s linear infinite;
-        animation:tick 6s linear infinite;
+        -webkit-animation:tick 60s linear infinite;
+        -moz-animation:tick 60s linear infinite;
+        animation:tick 60s linear infinite;
       }
       
       .clockface.go-go-go .minute-hand {
-        -webkit-animation:tick 90s linear infinite;
-        -moz-animation:tick 90s linear infinite;
-        animation:tick 90s linear infinite;
+        -webkit-animation:tick 900s linear infinite;
+        -moz-animation:tick 900s linear infinite;
+        animation:tick 900s linear infinite;
       }
       
       .clockface .second-swipe {
@@ -176,6 +177,7 @@
       .slice {
          clip: rect(0px, 63px, 130px, 0px);
          transform: rotateZ(120deg);
+         
        }
       
       .ten {
@@ -197,13 +199,14 @@
       }
       
       .inlay span {
-        font-family: 'La Belle Aurore', cursive;
         color: white;
         font-size: 3em;
-        font-weight: 400;
         position:absolute;
-        line-height: 1em;
         z-index:3;
+
+        font-weight: 400;
+        font-family: 'La Belle Aurore', cursive;
+        line-height: 1em;
       }
       
       .number-five {
@@ -220,15 +223,55 @@
         bottom: 0%;
         left: 37%;
       }
+      
+      /* button styling */
+      
+      .start, .reset {
+        display:table-cell;
+        vertical-align:middle;
+        position: absolute;
+        top:50%;
+        color: black;
+        font-size: 1.6em;
+        background-color: white;
+        height:120px;
+        width: 120px;
+        border: 2px solid black;
+        border-radius: 60px;
+        margin-top: -38px;
+      }
+      
+      .start:hover, .reset:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 3px 0 0 #cecece;
+      }
+      
+      .start:active, .reset:active {
+        transform: translateY(3px);
+        box-shadow: 0 -1px 0 0 #cecece;
+        border-bottom:0;
+      }
+      
+      .start {
+        left: 15%;
+      }
+      
+      .reset {
+        right: 15%;
+      }
+      
+      textarea, input, button { outline: none; }
+      
     
     </style>
   </head>
   <body>
     
-    <button class='start'>start</button>
-    <button class='reset'>reset</button>
+  
     
     <div class='clockface'>
+      <button class='start'>START</button>
+      <button class='reset'>RESET</button>
       <div class='middle-dot'></div>
       <div class='three'></div>
       <div class='six'></div>
@@ -261,7 +304,7 @@
         intervalId = setTimeout(function() {
           alert("Time's up!")
           $('.clockface').removeClass('go-go-go');
-        }, 90000);
+        }, 900000);
       }
       
       $(function() {
