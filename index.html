@@ -10,13 +10,11 @@
       
     <style>
     
-      * {
+      *, *::after {
         box-sizing: border-box;
       }
-      @-moz-keyframes tick { 100% { -moz-transform: rotate(360deg); } }
-      @-webkit-keyframes tick { 100% { -webkit-transform: rotate(360deg); } }
-      @-webkit-keyframes tick { 100% { -webkit-transform: rotate(360deg); } }
       
+      /* begin clock styling */
       .clockface {
         width: 500px;
         height: 500px;
@@ -79,7 +77,6 @@
         z-index: 6;
       }
       
-      /* how to make teardrop shape? */
       .second-hand {
         width: 2px;
         height: 58%;
@@ -105,10 +102,11 @@
         margin-left:-10px;
         margin-top: -1px;
         border-radius: 10px;
-        box-sizing: border-box;
       }
+      /* end clock styling */
       
-      /* animate */
+      
+      /* begin animation */
       .clockface.go-go-go .second-hand {
         -webkit-animation:tick 60s linear infinite;
         -moz-animation:tick 60s linear infinite;
@@ -121,10 +119,58 @@
         animation:tick 900s linear infinite;
       }
       
-      .clockface .second-swipe {
-        
+/*      .clockface.go-go-go .second-swipe {
+        -webkit-animation:tick 16s linear infinite;
+        -moz-animation:tick 16s linear infinite;
+        animation:tick 16s linear infinite;
       }
+
+      .clockface.go-go-go .second-swipe-mask {
+        clip: rect(0px, 500px, 250px, 0px);
+      }*/
       
+/*      .clockface.go-go-go .second-swipe {
+        transform: rotateZ(0deg);
+      }*/
+      
+      @-moz-keyframes tick { 100% { -moz-transform: rotate(360deg); } }
+      @-webkit-keyframes tick { 100% { -webkit-transform: rotate(360deg); } }
+      @-webkit-keyframes tick { 100% { -webkit-transform: rotate(360deg); } }
+      /* end animation */
+      
+      /* begin swipe styling */
+/*      .second-swipe-mask {
+        width: 100%;
+        position:absolute;
+        right:0;
+        top:0;
+        height:50%;
+        transform-origin:50% 100%;
+        clip: rect(0px, 500px, 250px, 250px);
+        transition: clip 0s ease-out 4s;
+      }
+
+      .second-swipe-mask:hover {
+        clip: rect(0px, 500px, 250px, 0px);
+      }
+
+      .second-swipe {
+        width: 50%;
+        height: 100%;
+        position:absolute;
+        left:50%;
+        top:0;
+        transform-origin:0% 100%;
+        border-top-right-radius:500px;
+        border-top: thick solid red;
+        border-right: thick solid red;
+        transform: rotateZ(-90deg);
+        transition:4s linear;
+      }*/
+      /* end swipe styling */
+      
+      
+      /* begin inlay styling */
       .inlay {
         width: 130px;
         height: 130px;
@@ -143,20 +189,11 @@
         transform-origin: 50% 100%;
         position:absolute;
         bottom:50%;
-/*        margin:0 auto;*/
         left: 50%;
         margin-left: -1px;
         z-index:3;
         
       }
-      
-/*      .clip-me {
-        width: 300px;
-        height: 300px;
-        background: black;
-        border-radius: 150px;
-
-      }*/
       
       .five, .ten, .fifteen, .slice {
         position: absolute;
@@ -223,9 +260,10 @@
         bottom: 0%;
         left: 37%;
       }
+      /* end inlay styling */
       
-      /* button styling */
       
+      /* begin button styling */
       .start, .reset {
         display:table-cell;
         vertical-align:middle;
@@ -259,7 +297,8 @@
         right: 15%;
       }
       
-      textarea, input, button { outline: none; }
+      button { outline: none; }
+      /* end button styling */
       
     
     </style>
@@ -269,6 +308,10 @@
   
     
     <div class='clockface'>
+      <!-- <div class='second-swipe-mask'>
+        <div class='second-swipe'></div>
+      </div> -->
+      
       <button class='start'>START</button>
       <button class='reset'>RESET</button>
       <div class='middle-dot'></div>
@@ -301,8 +344,8 @@
         }
         
         intervalId = setTimeout(function() {
-          alert("Time's up!")
           $('.clockface').removeClass('go-go-go');
+          alert("Time's up!")
         }, 900000);
       }
       
